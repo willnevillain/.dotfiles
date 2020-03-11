@@ -19,6 +19,21 @@ eval "$(ssh-agent -s)"
 # Init Starship prompt
 eval "$(starship init zsh)"
 
+# Init pyenv
+eval "$(pyenv init -)"
+
 # Aliases
 alias ll='ls -alGph'
+alias dotfile-git='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Env variables
+
+## Python
+export PIPENV_VENV_IN_PROJECT=true
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+export PIPENV_IGNORE_VIRTUALENVS=true
+export PIPENV_DEFAULT_PYTHON_VERSION=$PYENV_ROOT/shims/python
+
+## OpenSSL Linking
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
