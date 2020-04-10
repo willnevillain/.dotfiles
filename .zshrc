@@ -58,6 +58,12 @@ git-checkout-and-delete() {
     git checkout $1 && git pull && git branch -D $2
 }
 
+git-push-upstream() {
+    # Pushes current branch to upstream origin with same name
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+    git push --set-upstream origin $current_branch
+}
+
 git-delete-merged() {
     # Deletes current branch that has presumably been merged upstream.
     current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -88,10 +94,12 @@ git-new-branch-off-primary () {
 #####
 alias ll='ls -alGph'
 alias dotfile-git="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias gpu='git-push-upstream'
 alias gdm='git-delete-merged'
 alias gmlp='git-merge-latest-primary'
 alias gnb='git-new-branch-off-active'
 alias gnbp='git-new-branch-off-primary'
+alias pb='cd ~/code/perry/backend && nvm use 12.10'
 
 #####
 # ENV VARS
