@@ -30,6 +30,18 @@ eval "$(pyenv init -)"
 # FUNCTION DECLARATIONS
 #####
 
+autoload -U add-zsh-hook
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+    nvm use
+  elif [[ $(nvm version) != $(nvm version default)  ]]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
 git-is-gitflow() {
     # Returns with 0 error status if a branch called "develop" exists.
     git show-ref --verify --quiet refs/heads/develop
@@ -99,7 +111,6 @@ alias gdm='git-delete-merged'
 alias gmlp='git-merge-latest-primary'
 alias gnb='git-new-branch-off-active'
 alias gnbp='git-new-branch-off-primary'
-alias pb='cd ~/code/perry/backend && nvm use 12.10'
 
 #####
 # ENV VARS
@@ -114,3 +125,9 @@ export PIPENV_DEFAULT_PYTHON_VERSION=$PYENV_ROOT/shims/python
 ## OpenSSL Linking
 export LDFLAGS='-L/usr/local/opt/openssl/lib'
 export CPPFLAGS='-I/usr/local/opt/openssl/include'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/will/apps/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/will/apps/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/will/apps/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/will/apps/google-cloud-sdk/completion.zsh.inc'; fi
