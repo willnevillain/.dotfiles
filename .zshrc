@@ -17,6 +17,11 @@ compinit
 # TOOL INITS
 #####
 
+# Initialize and configure nvm (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Start ssh-agent in background
 eval "$(ssh-agent -s)"
 
@@ -115,6 +120,9 @@ alias gnbp='git-new-branch-off-primary'
 #####
 # ENV VARS
 #####
+
+## Postgres
+export PGGSSENCMODE=disable # Required to connect to Postgres 12.1 via pgcli
 
 ## Python
 export PIPENV_VENV_IN_PROJECT=true
