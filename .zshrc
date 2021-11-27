@@ -17,10 +17,8 @@ compinit
 # TOOL INITS
 #####
 
-# Initialize and configure nvm (Node Version Manager)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Load nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 
 # Start ssh-agent in background
 eval "$(ssh-agent -s)"
@@ -29,7 +27,11 @@ eval "$(ssh-agent -s)"
 eval "$(starship init zsh)"
 
 # Init pyenv
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
+
+# kubectl completions
+source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(stern --completion=zsh)
 
 #####
 # FUNCTION DECLARATIONS
@@ -116,6 +118,9 @@ alias gdm='git-delete-merged'
 alias gmlp='git-merge-latest-primary'
 alias gnb='git-new-branch-off-active'
 alias gnbp='git-new-branch-off-primary'
+alias kctx='kubectx'
+alias kns='kubens'
+alias k='kubectl'
 
 #####
 # ENV VARS
@@ -125,10 +130,10 @@ alias gnbp='git-new-branch-off-primary'
 export PGGSSENCMODE=disable # Required to connect to Postgres 12.1 via pgcli
 
 ## Python
-export PIPENV_VENV_IN_PROJECT=true
-export VIRTUAL_ENV_DISABLE_PROMPT=true
-export PIPENV_IGNORE_VIRTUALENVS=true
-export PIPENV_DEFAULT_PYTHON_VERSION=$PYENV_ROOT/shims/python
+# export PIPENV_VENV_IN_PROJECT=true
+# export VIRTUAL_ENV_DISABLE_PROMPT=true
+# export PIPENV_IGNORE_VIRTUALENVS=true
+# export PIPENV_DEFAULT_PYTHON_VERSION=$PYENV_ROOT/shims/python
 
 ## OpenSSL Linking
 export LDFLAGS='-L/usr/local/opt/openssl/lib'
@@ -139,3 +144,6 @@ if [ -f '/Users/will/apps/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/will/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/will/apps/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/will/apps/google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
